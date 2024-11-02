@@ -1,0 +1,20 @@
+<!-- SISTEMA_DE_SEGURANCA/templates/SISTEMA_DE_SEGURANCA/home.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Sistema de Gerenciamento de Segurança</h1>
+    <nav>
+        <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li>
+        {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Desconectar-se</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+</body>
+</html>

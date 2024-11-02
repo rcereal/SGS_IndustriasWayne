@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Recursos</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Recursos</h1>
+
+        <div class="resource-list">
+            <ul>
+                {% for recurso in recursos %}
+                <li>
+                    {{ recurso.nome }} - {{ recurso.status }}
+                    <a href="{% url 'editar_recurso' recurso.id %}">Editar</a>
+                    <a href="{% url 'excluir_recurso' recurso.id %}" onclick="return confirm('Você tem certeza que deseja excluir este recurso?');">Excluir</a>
+                </li>
+                {% empty %}
+                <li>Nenhum recurso encontrado.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="add-resource">
+            <a href="{% url 'adicionar_recurso' %}">Adicionar novo recurso</a>
+        </div>
+        <div class="logout">
+            <a href="{% url 'logout' %}">Desconectar-se</a>
+        </div>
+    </div>
+</body>
+</html>
