@@ -104,6 +104,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'Alfred Pennyworth <industriaswayne@gothan.com>'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
