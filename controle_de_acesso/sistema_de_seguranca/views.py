@@ -86,6 +86,7 @@ def solicitar_recuperacao_senha(request):
 
             messages.success(request, 'Um email de recuperação de senha foi enviado.')
             return redirect('login')
+        
         except User.DoesNotExist:
             messages.error(request, 'Email não encontrado')
         
