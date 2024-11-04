@@ -98,19 +98,19 @@ def redefinir_senha(request, codigo_recuperacao):
     except User.DoesNotExist:
         messages.error(request, 'Código de recuperação de senha inválido')
         return redirect('solicitar_recuperacao_senha')
-    
+
     if request.method == 'POST':
         nova_senha = request.POST.get('nova_senha')
         nova_senha_confirmacao = request.POST.get('nova_senha_confirmacao')
 
-    if nova_senha !=  nova_senha_confirmacao:
-        messages.error(request, "As senhas não correspondem.")
-    else:
+        if nova_senha != nova_senha_confirmacao:
+            messages.error(request, "As senhas não correspondem.")
+            return render(request, 'redefinir_senha.html', {"codigo_recuperacao": codigo_recuperacao})
+
         usuario.set_password(nova_senha)
         usuario.profile.codigo_recuperacao = ''
-        usuario.profile.save()
+        usuario.save()
         messages.success(request, 'Sua senha foi redefinida com sucesso.')
         return redirect('login')
-    
-    return redirect(request, 'redefinir_senha.html', {"codigo_recuperacao": codigo_recuperacao})
 
+    return render(request, 'redefinir_senha.html', {"codigo_recuperacao": codigo_recuperacao})

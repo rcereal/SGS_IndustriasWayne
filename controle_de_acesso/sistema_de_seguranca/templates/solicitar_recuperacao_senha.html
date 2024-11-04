@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redefinir Senha</title>
+    <title>Solicitar Recuperação de Senha</title>
 </head>
 <body>
-    <h1>Redefinir Senha</h1>
-    <div class="change_password">
+    <h1>Solicitar Recuperação de Senha</h1>
+    <div class="solicitacao-email">
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
         <form method="post">
             {% csrf_token %}
-            <label for="nova_senha">Nova Senha: </label>
-            <input type="password" name="nova_senha" required><br><br>
-            
-            <label for="nova_senha_confirmacao">Digite novamente: </label>
-            <input type="password" name="nova_senha_confirmacao" required><br>
-            
-            <button type="submit">Redefinir Senha</button>
+            <label for="email">Digite seu email: </label>
+            <input type="email" name="email" required>
+            <button type="submit">Enviar Link de Recuperação</button>  
         </form>
     </div>
 </body>
 </html>
+
