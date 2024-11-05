@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.crypto import get_random_string
@@ -114,3 +114,46 @@ def redefinir_senha(request, codigo_recuperacao):
         return redirect('login')
 
     return render(request, 'redefinir_senha.html', {"codigo_recuperacao": codigo_recuperacao})
+
+@user_passes_test(lambda u: u.is_staff)
+def gerenciar_usuario(request, user_id=None):
+    usuario = None
+
+    if user_id:
+        usuario = get_object_or_404(User, id=user_id)
+    else:
+        usuario = None
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        senha = request.POST.get('password')
+        cargo = request.POST.get('cargo')
+
+        # Atualizar usuário
+        if usuario:
+            usuario.username = username
+            usuario.email = email
+            if senha:
+                usuario.set_password(senha)  # Atualiza a senha se fornecida
+            usuario.save()
+
+            # Atualiza o perfil do usuário (campo cargo)
+            if usuario.profile:
+                usuario.profile.cargo = cargo
+                usuario.profile.save()
+            else:
+                # Caso o perfil não exista, criamos um novo
+                Profile.objects.create(user=usuario, cargo=cargo)
+
+            messages.success(request, 'Usuário atualizado com sucesso.')
+
+        # Criar novo usuário
+        else:
+            usuario = User.objects.create_user(username=username, email=email, password=senha)
+            Profile.objects.create(user=usuario, cargo=cargo)  # Criar o perfil junto com o usuário
+            messages.success(request, 'Usuário criado com sucesso.')
+
+        return redirect('lista_de_usuarios')  # Redireciona para a lista de usuários após a criação/atualização
+
+    return render(request, 'gerenciar_usuario.html', {"usuario": usuario})

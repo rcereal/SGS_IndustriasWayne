@@ -11,10 +11,13 @@
     <nav>
         <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li>
         {% if user.is_authenticated %}
-                <li><a href="{% url 'logout' %}">Desconectar-se</a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-            {% endif %}
-        </ul>
+
+        {% if user.is_staff %}
+            <li><a href="{% url 'gerenciar_usuario' %}">Gerenciar Usuários</a></li>
+        {% endif %}
+        <li><a href="{% url 'logout' %}">Desconectar-se</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
 </body>
 </html>
