@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+</head>
+<body>
+    <h1>Lista de Usuários</h1>
+
+    <ul>
+        {% for usuario in usuarios %}
+            <li>
+                {{ usuario.username }} ({{ usuario.email }})
+                <a href="{% url 'gerenciar_usuario_editar' usuario.id %}">Editar</a>
+            </li>
+        {% empty %}
+            <li>Nenhum usuário encontrado.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="edit-user">
+        <a href="{% url 'gerenciar_usuario' %}">Criar Novo Usuário</a>
+    </div>
+    
+    <div class="home">
+        <a href="{% url 'home' %}">Voltar para a Pagina Inicial</a>
+    </div>
+    
+</body>
+</html>

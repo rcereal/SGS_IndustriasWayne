@@ -7,6 +7,7 @@ from django.utils.crypto import get_random_string
 from django.urls import reverse
 from django.conf import settings
 from django.core.mail import send_mail
+from django.db import transaction
 from .models import Recurso, Profile
 from .forms import Form_do_Recurso
 
@@ -116,13 +117,36 @@ def redefinir_senha(request, codigo_recuperacao):
     return render(request, 'redefinir_senha.html', {"codigo_recuperacao": codigo_recuperacao})
 
 @user_passes_test(lambda u: u.is_staff)
-def gerenciar_usuario(request, user_id=None):
-    usuario = None
+def lista_de_usuarios(request):
+    usuarios = User.objects.all()  # Pega todos os usuários cadastrados
+    return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
 
-    if user_id:
-        usuario = get_object_or_404(User, id=user_id)
-    else:
-        usuario = None
+@user_passes_test(lambda u: u.is_staff)
+def adicionar_usuario(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        senha = request.POST.get('password')
+        cargo = request.POST.get('cargo')
+
+        if username and email and senha and cargo:
+            try:
+                with transaction.atomic():
+                    # Criação de um novo usuário com perfil associado
+                    usuario = User.objects.create_user(username=username, email=email, password=senha)
+                    Profile.objects.create(user=usuario, cargo=cargo)
+                    messages.success(request, 'Usuário criado com sucesso.')
+                    return redirect('lista_de_usuarios')  # Redireciona após criação
+            except Exception as e:
+                messages.error(request, f'Ocorreu um erro ao criar o usuário: {e}')
+        else:
+            messages.error(request, 'Todos os campos são obrigatórios.')
+
+    return render(request, 'adicionar_usuario.html')
+
+@user_passes_test(lambda u: u.is_staff)
+def gerenciar_usuario(request, user_id=None):
+    usuario = get_object_or_404(User, id=user_id) if user_id else None
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -130,30 +154,42 @@ def gerenciar_usuario(request, user_id=None):
         senha = request.POST.get('password')
         cargo = request.POST.get('cargo')
 
-        # Atualizar usuário
-        if usuario:
-            usuario.username = username
-            usuario.email = email
-            if senha:
-                usuario.set_password(senha)  # Atualiza a senha se fornecida
-            usuario.save()
+        try:
+            with transaction.atomic():
+                if usuario:
+                    usuario.username = username
+                    usuario.email = email
+                    if senha:
+                        usuario.set_password(senha)
+                    usuario.save()
 
-            # Atualiza o perfil do usuário (campo cargo)
-            if usuario.profile:
-                usuario.profile.cargo = cargo
-                usuario.profile.save()
-            else:
-                # Caso o perfil não exista, criamos um novo
-                Profile.objects.create(user=usuario, cargo=cargo)
+                    # Atualização ou criação do perfil associado
+                    profile, created = Profile.objects.get_or_create(user=usuario)
+                    profile.cargo = cargo
+                    profile.save()
 
-            messages.success(request, 'Usuário atualizado com sucesso.')
+                    messages.success(request, 'Usuário atualizado com sucesso.')
+                else:
+                    # Criação de um novo usuário com perfil associado
+                    usuario = User.objects.create_user(username=username, email=email, password=senha)
+                    Profile.objects.create(user=usuario, cargo=cargo)
+                    messages.success(request, 'Usuário criado com sucesso.')
 
-        # Criar novo usuário
-        else:
-            usuario = User.objects.create_user(username=username, email=email, password=senha)
-            Profile.objects.create(user=usuario, cargo=cargo)  # Criar o perfil junto com o usuário
-            messages.success(request, 'Usuário criado com sucesso.')
-
-        return redirect('lista_de_usuarios')  # Redireciona para a lista de usuários após a criação/atualização
-
+            return redirect('lista_de_usuarios')
+        except Exception as e:
+            messages.error(request, f'Ocorreu um erro: {e}')
+    
     return render(request, 'gerenciar_usuario.html', {"usuario": usuario})
+
+
+@user_passes_test(lambda u: u.is_staff)
+def excluir_usuario(request, user_id):
+    usuario = get_object_or_404(User, id=user_id)
+
+    if usuario.is_staff:  # Impedir que o usuário exclua a si mesmo ou um superusuário
+        messages.error(request, 'Você não pode excluir este usuário.')
+    else:
+        usuario.delete()
+        messages.success(request, 'Usuário excluído com sucesso.')
+
+    return redirect('lista_de_usuarios')

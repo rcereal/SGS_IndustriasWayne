@@ -13,7 +13,7 @@
         {% if user.is_authenticated %}
 
         {% if user.is_staff %}
-            <li><a href="{% url 'gerenciar_usuario' %}">Gerenciar Usuários</a></li>
+        <li><a href="{% url 'lista_de_usuarios' %}">Lista de Usuários</a></li>
         {% endif %}
         <li><a href="{% url 'logout' %}">Desconectar-se</a></li>
         {% else %}

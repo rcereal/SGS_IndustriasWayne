@@ -25,8 +25,10 @@
     </form>
 
     {% if usuario %}
-        <a href="{% url 'excluir_usuario' usuario.id %}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir Usuário</a>
+    <a href="{% url 'excluir_usuario' usuario.id %}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir Usuário</a>
     {% endif %}
+
+    <a href="{% url 'lista_de_usuarios' %}">Voltar para a Lista de Usuários</a>
 </body>
 
 </html>
