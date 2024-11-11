@@ -19,7 +19,15 @@
         <input type="password" name="password" required><br><br>
 
         <label for="cargo">Cargo:</label>
-        <input type="text" name="cargo" value="{% if usuario and usuario.profile %}{{ usuario.profile.cargo }}{% else %}{% endif %}" required><br><br>
+        <select name="cargo" required>
+            <option value="">Selecione um cargo</option>
+            {% for valor, rotulo in usuario.profile.cargo_choices %}
+                <option value="{{ valor }}" {% if usuario and usuario.profile.cargo == valor %}selected{% endif %}>
+                    {{ rotulo }}
+                </option>
+            {% endfor %}
+        </select>
+        <br><br>
 
         <button type="submit">{% if usuario %}Atualizar Usuário{% else %}Criar Usuário{% endif %}</button><br>
     </form>

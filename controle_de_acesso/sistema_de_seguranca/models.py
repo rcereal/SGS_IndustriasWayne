@@ -16,9 +16,15 @@ class Recurso(models.Model):
         return self.nome
     
 class Profile(models.Model):
+    cargo_choices = [
+        ('Gerente', 'Gerente | Mordomo'),
+        ('Funcionario', 'Vilão'),
+        ('Assistente', 'Assistente'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     codigo_recuperacao = models.CharField(max_length=20, blank=True)
-    cargo = models.CharField(max_length=100, blank=True)
+    cargo = models.CharField(max_length=100, choices=cargo_choices, blank=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'

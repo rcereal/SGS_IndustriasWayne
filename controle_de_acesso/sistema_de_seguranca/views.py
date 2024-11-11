@@ -10,6 +10,7 @@ from django.core.mail import send_mail
 from django.db import transaction
 from .models import Recurso, Profile
 from .forms import Form_do_Recurso
+from .utils import check_cargo
 
 
 def home(request):
@@ -116,12 +117,12 @@ def redefinir_senha(request, codigo_recuperacao):
 
     return render(request, 'redefinir_senha.html', {"codigo_recuperacao": codigo_recuperacao})
 
-@user_passes_test(lambda u: u.is_staff)
+@user_passes_test(lambda u: check_cargo(u, ['Funcionario', 'Gerente', 'Assistente']))
 def lista_de_usuarios(request):
     usuarios = User.objects.all()  # Pega todos os usuários cadastrados
     return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
 
-@user_passes_test(lambda u: u.is_staff)
+@user_passes_test(lambda u: check_cargo(u, ['Gerente', 'Assistente']))
 def adicionar_usuario(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -144,7 +145,7 @@ def adicionar_usuario(request):
 
     return render(request, 'adicionar_usuario.html')
 
-@user_passes_test(lambda u: u.is_staff)
+@user_passes_test(lambda u: check_cargo(u, ['Gerente']))
 def gerenciar_usuario(request, user_id=None):
     usuario = get_object_or_404(User, id=user_id) if user_id else None
 
@@ -182,7 +183,7 @@ def gerenciar_usuario(request, user_id=None):
     return render(request, 'gerenciar_usuario.html', {"usuario": usuario})
 
 
-@user_passes_test(lambda u: u.is_staff)
+@user_passes_test(lambda u: check_cargo(u, ['Gerente']))
 def excluir_usuario(request, user_id):
     usuario = get_object_or_404(User, id=user_id)
 
