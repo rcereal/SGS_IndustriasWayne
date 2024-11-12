@@ -11,8 +11,9 @@ urlpatterns = [
     path('recursos/excluir/<int:recurso_id>/', views.excluir_recurso, name='excluir_recurso'),
     path('solicitar-recuperacao-senha/', views.solicitar_recuperacao_senha, name='solicitar_recuperacao_senha'),
     path('redefinir-senha/<str:codigo_recuperacao>/', views.redefinir_senha, name='redefinir_senha'),
-    path('gerenciar-usuario/', views.gerenciar_usuario, name='gerenciar_usuario'),  # Criação ou edição de usuário
-    path('editar-usuario/<int:user_id>/', views.gerenciar_usuario, name='gerenciar_usuario_editar'),  # Editar um usuário específico
-    path('excluir-usuario/<int:user_id>/', views.excluir_usuario, name='excluir_usuario'),  # Excluir um usuário específico
+    path('adicionar-usuario/', views.adicionar_usuario, name='adicionar_usuario'),
+    path('gerenciar-usuario/', views.gerenciar_usuario, name='gerenciar_usuario'),
+    path('editar-usuario/<int:user_id>/', views.gerenciar_usuario, name='gerenciar_usuario_editar'),
+    path('excluir-usuario/<int:user_id>/', views.excluir_usuario, name='excluir_usuario'),
     path('lista-usuarios/', views.lista_de_usuarios, name='lista_de_usuarios'),
 ]

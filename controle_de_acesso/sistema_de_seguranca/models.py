@@ -17,6 +17,7 @@ class Recurso(models.Model):
     
 class Profile(models.Model):
     cargo_choices = [
+        ('CEO', 'CEO'),
         ('Gerente', 'Gerente | Mordomo'),
         ('Funcionario', 'Vilão'),
         ('Assistente', 'Assistente'),

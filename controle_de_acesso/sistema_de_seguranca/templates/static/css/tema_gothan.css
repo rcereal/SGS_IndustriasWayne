@@ -1,0 +1,81 @@
+/* Gotham Theme CSS */
+body {
+    background-color: #1e1e1e;  /* Cor de fundo escura, evocando o estilo de Gotham */
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #f1c40f;  /* Dourado que remete ao estilo das Indústrias Wayne */
+    text-align: center;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #2b2b2b;  /* Fundo para contraste */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #e0e0e0;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #3a3a3a;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #e0e0e0;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #f1c40f;
+    outline: none;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 10px;
+    background-color: #f1c40f;
+    color: #1e1e1e;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-login:hover {
+    background-color: #d4ac0d;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+}
+
+.password-recovery {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.password-recovery a {
+    color: #f1c40f;
+    text-decoration: none;
+}
+
+.password-recovery a:hover {
+    text-decoration: underline;
+}

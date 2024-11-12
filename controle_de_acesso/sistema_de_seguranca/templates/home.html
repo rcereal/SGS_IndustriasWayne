@@ -1,23 +1,25 @@
-<!-- SISTEMA_DE_SEGURANCA/templates/SISTEMA_DE_SEGURANCA/home.html -->
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
-</head>
-<body>
-    <h1>Bem-vindo ao Sistema de Gerenciamento de Segurança</h1>
-    <nav>
-        <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li>
-        {% if user.is_authenticated %}
+{% extends 'base.html' %}
 
-        {% if user.is_staff %}
-        <li><a href="{% url 'lista_de_usuarios' %}">Lista de Usuários</a></li>
+{% block title %}Página Inicial - Sistema de Gerenciamento de Segurança{% endblock %}
+
+{% block content %}
+<h1>Bem-vindo ao Sistema de Gerenciamento de Segurança</h1>
+<nav>
+    {% if user.is_authenticated %}
+        {% if user.profile.cargo == 'Funcionario' %}
+            <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li> 
+        {% elif user.profile.cargo == 'Gerente' %}
+            <li><a href="{% url 'lista_de_usuarios' %}">Lista de Usuários</a></li> 
+        {% elif user.profile.cargo == 'Assistente' %}
+            <li><a href="{% url 'home' %}">Home</a></li>
+        {% elif user.is_superuser %}
+            <li><a href="{% url 'lista_de_usuarios' %}">Lista de Usuários</a></li>
+            <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li>
         {% endif %}
+        
         <li><a href="{% url 'logout' %}">Desconectar-se</a></li>
-        {% else %}
-            <li><a href="{% url 'login' %}">Login</a></li>
-        {% endif %}
-</body>
-</html>
+    {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+    {% endif %}
+</nav>
+{% endblock %}
