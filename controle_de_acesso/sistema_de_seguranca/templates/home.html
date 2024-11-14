@@ -1,25 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %}Página Inicial - Sistema de Gerenciamento de Segurança{% endblock %}
+{% block title %}Página Inicial - Sistema de Segurança{% endblock %}
 
 {% block content %}
-<h1>Bem-vindo ao Sistema de Gerenciamento de Segurança</h1>
-<nav>
-    {% if user.is_authenticated %}
-        {% if user.profile.cargo == 'Funcionario' %}
-            <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li> 
-        {% elif user.profile.cargo == 'Gerente' %}
-            <li><a href="{% url 'lista_de_usuarios' %}">Lista de Usuários</a></li> 
-        {% elif user.profile.cargo == 'Assistente' %}
-            <li><a href="{% url 'home' %}">Home</a></li>
-        {% elif user.is_superuser %}
-            <li><a href="{% url 'lista_de_usuarios' %}">Lista de Usuários</a></li>
-            <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li>
-        {% endif %}
-        
-        <li><a href="{% url 'logout' %}">Desconectar-se</a></li>
-    {% else %}
-        <li><a href="{% url 'login' %}">Login</a></li>
-    {% endif %}
-</nav>
+    <h1>Bem-vindo ao Sistema de Gerenciamento de Segurança</h1>
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+                {% if user.profile.cargo == 'Funcionario' %}
+                    <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li> 
+                {% elif user.profile.cargo == 'Gerente' %}
+                    <li><a href="{% url 'lista_de_usuarios' %}">Lista de Usuários</a></li> 
+                    <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li> 
+                {% elif user.profile.cargo == 'Assistente' %}
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                {% elif user.is_superuser %}
+                    <li><a href="{% url 'lista_de_usuarios' %}">Lista de Usuários</a></li>
+                    <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li>
+                {% endif %}
+                
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}
