@@ -5,23 +5,35 @@
 {% block content %}
     <h1>Bem-vindo ao Sistema de Gerenciamento de Segurança</h1>
     <nav>
-        <ul>
+        <div class="resource-list">
             {% if user.is_authenticated %}
                 {% if user.profile.cargo == 'Funcionario' %}
-                    <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li> 
+                    <a href="{% url 'lista_de_recursos' %}" class="card-link">
+                        <h5>Lista de Recursos</h5>
+                    </a>
                 {% elif user.profile.cargo == 'Gerente' %}
-                    <li><a href="{% url 'lista_de_usuarios' %}">Lista de Usuários</a></li> 
-                    <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li> 
+                    <a href="{% url 'lista_de_usuarios' %}" class="card-link">
+                        <h5>Lista de Usuários</h5>
+                    </a>
+                    <a href="{% url 'lista_de_recursos' %}" class="card-link">
+                        <h5>Lista de Recursos</h5>
+                    </a>
                 {% elif user.profile.cargo == 'Assistente' %}
-                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <a href="{% url 'home' %}" class="card-link">
+                        <h5>Home</h5>
+                    </a>
                 {% elif user.is_superuser %}
-                    <li><a href="{% url 'lista_de_usuarios' %}">Lista de Usuários</a></li>
-                    <li><a href="{% url 'lista_de_recursos' %}">Lista de Recursos</a></li>
+                    <a href="{% url 'lista_de_usuarios' %}" class="card-link">
+                        <h5>Lista de Usuários</h5>
+                    </a>
+                    <a href="{% url 'lista_de_recursos' %}" class="card-link">
+                        <h5>Lista de Recursos</h5>
+                    </a>
                 {% endif %}
-                
             {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
+                <a href="{% url 'login' %}" class="card-link">
+                    <h5>Login</h5>
+                </a>
             {% endif %}
-        </ul>
     </nav>
 {% endblock %}

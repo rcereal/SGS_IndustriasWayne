@@ -5,34 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Sistema de Segurança - Indústrias Wayne{% endblock %}</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/tema_gothan.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="{% static 'favicons/baticon.png' %}" type="image/png">
 </head>
-<body>
+<body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
     {% if not request.path == '/sistema_de_seguranca/login/' %}
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Início</a></li>
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
-                {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                {% endif %}
+    <header class="d-flex justify-content-between align-items-center px-3">
+        <h1 class="m-0">Indústrias Wayne</h1>
+
+        <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle" type="button" id="menuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                &#9776;
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuButton">
+                <li><a class="dropdown-item" href="{% url 'profile' %}">Meu Perfil</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
             </ul>
-        </nav>
+        </div>
     </header>
     {% endif %}
 
-    <div class="container">
+    <div class="container" style="flex: 1;">
         {% block content %}{% endblock %}
     </div>
 
     {% if not request.path == '/sistema_de_seguranca/login/' %}
-    <footer>
+    <footer style="text-align: center; padding: 10px;; color: black;">
         <p>&copy; 2024 Indústrias Wayne</p>
     </footer>
     {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

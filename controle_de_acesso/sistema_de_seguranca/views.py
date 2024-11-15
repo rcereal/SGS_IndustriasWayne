@@ -32,6 +32,15 @@ def user_logout(request):
     logout(request)
     return redirect('login')
 
+@login_required
+def perfil_view(request):
+    usuario = request.user
+    try:
+        perfil = usuario.profile
+    except Profile.DoesNotExist:
+        perfil = None
+
+    return render(request, 'perfil.html', {'usuario': usuario, 'perfil': perfil})
 
 @login_required
 def lista_de_recursos(request):
@@ -221,3 +230,8 @@ def excluir_usuario(request, user_id):
         messages.success(request, 'Usuário excluído com sucesso.')
 
     return redirect('lista_de_usuarios')
+
+@login_required
+def detalhes_usuario(request, user_id):
+    usuario = get_object_or_404(User, id=user_id)
+    return render(request, 'detalhes_usuario.html', {"usuario": usuario})

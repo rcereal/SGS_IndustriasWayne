@@ -1,31 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuários</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Lista de Usuários{% endblock %}
+
+{% block content %}
     <h1>Lista de Usuários</h1>
 
-    <ul>
+    <div class="resource-list">
         {% for usuario in usuarios %}
-            <li>
-                {{ usuario.username }} ({{ usuario.email }})
-                <a href="{% url 'gerenciar_usuario_editar' usuario.id %}">Editar</a>
-            </li>
+            <a href="{% url 'detalhes_usuario' usuario.id %}" class="card-link">
+                <h5>{{ usuario.username }}</h5>
+            </a>
         {% empty %}
-            <li>Nenhum usuário encontrado.</li>
+            <p>Nenhum usuário encontrado.</p>
         {% endfor %}
-    </ul>
+    </div>
 
     <div class="edit-user">
-        <a href="{% url 'gerenciar_usuario' %}">Criar Novo Usuário</a>
+        <!-- Link para adicionar um novo usuário, não precisa de user_id -->
+        <a href="{% url 'adicionar_usuario' %}" class="card-link">
+            <h5>Criar Novo Usuário</h5>
+        </a>
     </div>
-    
+
     <div class="home">
-        <a href="{% url 'home' %}">Voltar para a Pagina Inicial</a>
+        <a href="{% url 'home' %}" class="card-link">
+            <h5>Voltar para a Página Inicial</h5>
+        </a>
     </div>
-    
-</body>
-</html>
+{% endblock %}

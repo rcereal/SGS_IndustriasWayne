@@ -1,0 +1,53 @@
+header {
+    background: #222;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.card-link {
+    display: block;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color o.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.card-link:hover {
+    background-color: #f8f9fa;
+    color: #0056b3;
+    text-decoration: none;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-link h5{
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.resource-list, edit-user {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.resource-list a, .edit-user a {
+    width: calc(33% - 10%);
+    box-sizing: border-box;
+}
+
+.add-resource, .edit-user, .home {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .resource-list a, .edit-user a {
+        width: 100%;
+}}

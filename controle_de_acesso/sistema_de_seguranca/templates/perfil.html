@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Perfil do Usuario</h1>
+    <div class="card p-4 shadow mt-3">
+        <h2>Informações Pessoais</h2>
+        <p><strong>Nome de Usuario:</strong> {{ usuario.username }}</p>
+        <p><strong>Email:</strong>{{ usuario.email }}</p>
+
+        {% if perfil %}
+            <h2 class="mt-4">Outras Informações</h2>
+            <p><strong>Nome Completo:</strong> {{ perfil.nome_completo }}</p>
+            <p><strong>Cargo:</strong> {{ perfil.cargo }}</p>
+            <p><strong>Data de Cadastro:</strong> {{ usuario.date_joined|date:"d/m/Y" }}</p>
+        {% else %}
+            <p class="text-muted">Nenhuma informação adicional foi fornecida.</p>
+        {%endif%}
+    </div>
+</div>
+{% endblock %} 

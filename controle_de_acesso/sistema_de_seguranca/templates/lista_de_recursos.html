@@ -1,34 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Recursos</title>
-</head>
-<body>
-    <div class="container">
-        <h1>Lista de Recursos</h1>
+{% extends 'base.html' %}
 
-        <div class="resource-list">
-            <ul>
-                {% for recurso in recursos %}
-                <li>
-                    {{ recurso.nome }} - {{ recurso.status }}
-                    <a href="{% url 'editar_recurso' recurso.id %}">Editar</a>
-                    <a href="{% url 'excluir_recurso' recurso.id %}" onclick="return confirm('Você tem certeza que deseja excluir este recurso?');">Excluir</a>
-                </li>
-                {% empty %}
-                <li>Nenhum recurso encontrado.</li>
-                {% endfor %}
-            </ul>
-        </div>
+{% block title %}Lista de Recursos{% endblock %}
 
-        <div class="add-resource">
-            <a href="{% url 'adicionar_recurso' %}">Adicionar novo recurso</a>
-        </div>
-        <div class="logout">
-            <a href="{% url 'logout' %}">Desconectar-se</a>
-        </div>
+{% block content %}
+    <h1>Lista de Recursos</h1>
+
+    <div class="resource-list">
+        {% for recurso in recursos %}
+            <a href="{% url 'editar_recurso' recurso.id %}" class="card-link">
+                <h5>{{ recurso.nome }} - {{ recurso.status }}</h5>
+            </a>
+        {% empty %}
+            <p>Nenhum recurso encontrado.</p>
+        {% endfor %}
     </div>
-</body>
-</html>
+
+    <div class="add-resource">
+        <a href="{% url 'adicionar_recurso' %}" class="card-link">
+            <h5>Adicionar Novo Recurso</h5>
+        </a>
+    </div>
+
+    <div class="back-home">
+        <a href="{% url 'home' %}" class="card-link">
+            <h5>Voltar</h5>
+        </a>
+    </div>
+{% endblock %}

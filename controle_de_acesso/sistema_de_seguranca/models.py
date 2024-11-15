@@ -23,7 +23,7 @@ class Profile(models.Model):
         ('Assistente', 'Assistente'),
     ]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     codigo_recuperacao = models.CharField(max_length=20, blank=True)
     cargo = models.CharField(max_length=100, choices=cargo_choices, blank=True)
 

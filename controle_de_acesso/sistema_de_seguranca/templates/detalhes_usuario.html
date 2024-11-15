@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes do Usuário{% endblock %}
+
+{% block content %}
+    <h1>Detalhes do Usuário: {{ usuario.username }}</h1>
+
+    <div>
+        <p><strong>Nome:</strong> {{ usuario.first_name }} {{ usuario.last_name }}</p>
+        <p><strong>Email:</strong> {{ usuario.email }}</p>
+        <p><strong>Cargo:</strong> {{ usuario.profile.cargo }}</p>
+        <p><strong>Status:</strong> {{ usuario.is_active|yesno:"Ativo,Inativo" }}</p>
+    </div>
+
+    <div>
+        {% if user.profile.cargo == 'CEO' or user.profile.cargo == 'Gerente' %}
+            <a href="{% url 'gerenciar_usuario' usuario.id %}" class="btn btn-info">Editar Usuário</a>
+        {% endif %}
+    </div>
+
+    <div>
+        <a href="{% url 'lista_de_usuarios' %}" class="btn btn-secondary">Voltar para a Lista de Usuários</a>
+    </div>
+{% endblock %}
