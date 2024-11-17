@@ -9,7 +9,6 @@
         <p><strong>Email:</strong>{{ usuario.email }}</p>
 
         {% if perfil %}
-            <h2 class="mt-4">Outras Informações</h2>
             <p><strong>Nome Completo:</strong> {{ perfil.nome_completo }}</p>
             <p><strong>Cargo:</strong> {{ perfil.cargo }}</p>
             <p><strong>Data de Cadastro:</strong> {{ usuario.date_joined|date:"d/m/Y" }}</p>

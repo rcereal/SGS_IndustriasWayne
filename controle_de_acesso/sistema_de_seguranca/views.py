@@ -136,30 +136,44 @@ def adicionar_usuario(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
+        nome_completo = request.POST.get('full_name')  # Nome completo pode ser vazio
         senha = request.POST.get('password')
         cargo = request.POST.get('cargo')
+        profile_picture = request.FILES.get('profile_picture')  # Foto de perfil é opcional
 
         if username and email and senha and cargo:
             try:
                 with transaction.atomic():
+                    # Criar o usuário
                     usuario = User.objects.create_user(username=username, email=email, password=senha)
 
-                    # Se o cargo for 'CEO', configura as permissões de superusuário
+                    # Configurar nome completo (dividindo em first_name e last_name)
+                    if nome_completo:
+                        nomes = nome_completo.split(' ')
+                        usuario.first_name = nomes[0]
+                        usuario.last_name = ' '.join(nomes[1:]) if len(nomes) > 1 else ''
+                    usuario.save()
+
+                    # Configurar permissões especiais para CEO
                     if cargo == 'CEO':
                         usuario.is_superuser = True
                         usuario.is_staff = True
-                    usuario.save()
+                        usuario.save()
 
-                    # Verifica se o perfil já existe para esse usuário
-                    if not hasattr(usuario, 'profile'):  # Verifica se o perfil já foi criado
-                        Profile.objects.create(user=usuario, cargo=cargo)
-                    
+                    # Criar perfil associado
+                    profile = Profile.objects.create(
+                        user=usuario,
+                        cargo=cargo,
+                        profile_picture=profile_picture  # Salvar a foto de perfil, se enviada
+                    )
+                    profile.save()
+
                     messages.success(request, 'Usuário criado com sucesso.')
-                    return redirect('lista_de_usuarios')  # Redireciona após criação
+                    return redirect('lista_de_usuarios')
             except Exception as e:
                 messages.error(request, f'Ocorreu um erro ao criar o usuário: {e}')
         else:
-            messages.error(request, 'Todos os campos são obrigatórios.')
+            messages.error(request, 'Todos os campos obrigatórios devem ser preenchidos.')
 
     return render(request, 'adicionar_usuario.html')
 

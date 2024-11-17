@@ -3,6 +3,8 @@
 {% block title %}Criar Novo Usuário{% endblock %}
 
 {% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/forms_adicionar_editar.css' %}">
+
     <h1>Criar Novo Usuário</h1>
 
     <div class="new-user">
@@ -10,6 +12,9 @@
             {% csrf_token %}
             <label for="username">Nome de Usuário: </label>
             <input type="text" name="username" required> <br><br>
+
+            <label for="full-name">Nome Completo: </label>
+            <input type="text" name="full-name" required> <br><br>
 
             <label for="email">Email: </label>
             <input type="email" name="email" required><br><br>
@@ -22,11 +27,15 @@
                 <option value="CEO">CEO</option>
                 <option value="Gerente">Gerente</option>
                 <option value="Assistente">Assistente</option>
+                <option value="Funcinario">Funcionario</option>
             </select><br><br>
+
+            <label for="profile_picture">Foto de Perfil: </label>
+            <input type="file" name="profile_picture"><br><br>
 
             <button type="submit">Criar Usuário</button><br>
         </form>
-    </div>
+    </div> <br>
 
     {% if messages %}
     <div class="messages">

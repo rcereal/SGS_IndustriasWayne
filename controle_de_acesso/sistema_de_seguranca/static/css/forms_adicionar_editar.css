@@ -1,0 +1,46 @@
+/* user-form.css - Estilo específico para a página de adicionar/editar usuário */
+form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+form label {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+form .messages {
+    margin-top: 15px;
+}
+
+.add-user-container {
+    width: 80%;  /* Ajuste conforme necessário */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .add-user-container {
+        width: 90%;
+    }
+}
