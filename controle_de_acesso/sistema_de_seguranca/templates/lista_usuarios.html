@@ -1,14 +1,31 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Lista de Usuários{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/lista_de_usuarios.css' %}">
+{% endblock %}
+
 {% block content %}
-    <h1>Lista de Usuários</h1>
+    <h1 class="title">Lista de Usuários</h1>
 
     <div class="resource-list">
         {% for usuario in usuarios %}
             <a href="{% url 'detalhes_usuario' usuario.id %}" class="card-link">
-                <h5>{{ usuario.username }}</h5>
+                <div class="card">
+                    <div class="image-container">
+                        {% if usuario.profile.profile_picture %}
+                            <img src="{{ usuario.profile.profile_picture.url }}" alt="{{ usuario.username }}" class="profile-image">
+                        {% else %}
+                            <img src="{% static 'images/default_profile_picture.jpg' %}" alt="{{ usuario.username }}" class="profile-image">
+                        {% endif %}
+                    </div>
+                    <div class="username-container">
+                        <h5>{{ usuario.username }}</h5>
+                    </div>
+                </div>
             </a>
         {% empty %}
             <p>Nenhum usuário encontrado.</p>
@@ -16,7 +33,6 @@
     </div>
 
     <div class="edit-user">
-        <!-- Link para adicionar um novo usuário, não precisa de user_id -->
         <a href="{% url 'adicionar_usuario' %}" class="card-link">
             <h5>Criar Novo Usuário</h5>
         </a>

@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Novo Usuario</title>
-</head>
-<body>
-    <h1>Criar Novo Usuario</h1>
+{% extends 'base.html' %}
+
+{% block title %}Criar Novo Usuário{% endblock %}
+
+{% block content %}
+    <h1>Criar Novo Usuário</h1>
 
     <div class="new-user">
         <form method="post">
             {% csrf_token %}
-            <label for="username">Nome de Usuario: </label>
+            <label for="username">Nome de Usuário: </label>
             <input type="text" name="username" required> <br><br>
 
             <label for="email">Email: </label>
@@ -21,11 +18,27 @@
             <input type="password" name="password" required><br><br>
 
             <label for="cargo">Cargo:</label>
-            <input type="text" name="cargo" required><br><br>
+            <select name="cargo" required>
+                <option value="CEO">CEO</option>
+                <option value="Gerente">Gerente</option>
+                <option value="Assistente">Assistente</option>
+            </select><br><br>
 
             <button type="submit">Criar Usuário</button><br>
-
         </form>
     </div>
-</body>
-</html>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div>
+        <a href="{% url 'lista_de_usuarios' %}">Voltar para a lista de usuários</a>
+    </div>
+{% endblock %}

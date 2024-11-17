@@ -1,0 +1,33 @@
+.resource-list .card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    transition: transform 0.2s ease;
+}
+
+.resource-list .card:hover {
+    transform: scale(1.05);
+}
+
+.resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media (min-width: 768px) {
+    .resource-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .resource-list .card {
+        flex: 0 0 calc(33.333% - 10px); /* Cards ocuparão 1/3 da largura */
+    }
+}

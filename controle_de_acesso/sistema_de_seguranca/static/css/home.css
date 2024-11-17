@@ -4,19 +4,42 @@ header {
     padding: 10px 20px;
 }
 
+.title {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
 .card-link {
-    display: block;
+    display: flex;
+    flex-direction: column;       /* Muda a direção para coluna (imagem em cima, texto abaixo) */
+    align-items: center;          /* Alinha horizontalmente os itens no centro */
+    justify-content: center;      /* Centraliza o conteúdo, se necessário */
     padding: 15px;
     margin: 10px 0;
+    margin-top: 30px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     color: #007bff;
     text-decoration: none;
     font-weight: 500;
-    transition: background-color o.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    gap: 10px;                     /* Adiciona espaço entre a imagem e o texto */
 }
 
+.card-link img {
+    width: 12rem;   /* Ajuste o tamanho da imagem conforme necessário */
+    height: 12rem;
+    object-fit: cover; /* Garante que a imagem não se distorça */
+    border-radius: 50%; /* Se quiser uma imagem redonda */
+}
+
+.card-link h5 {
+    margin: 0;       /* Remove a margem do título */
+    font-size: 1rem;
+    font-weight: bold;
+}
 
 .card-link:hover {
     background-color: #f8f9fa;
@@ -51,3 +74,4 @@ header {
     .resource-list a, .edit-user a {
         width: 100%;
 }}
+

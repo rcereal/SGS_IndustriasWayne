@@ -1,0 +1,58 @@
+/* Certifique-se de que a lista de recursos/usuários seja exibida corretamente */
+.title {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.resource-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+}
+
+.card {
+    display: flex;  /* Flexbox para alinhar a imagem e o nome lado a lado */
+    align-items: center;  /* Alinha os itens no centro verticalmente */
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;  /* Padding ajustado */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-decoration: none;  /* Remove sublinhado */
+    color: #333;
+    transition: transform 0.3s ease;  /* Animação para aumentar o card ao passar o mouse */
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Contêiner para a imagem */
+.image-container {
+    margin-right: 15px;  /* Espaço entre a imagem e o nome */
+}
+
+/* Imagem do perfil */
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 30%;
+    object-fit: cover;
+    border: 2px solid; /* Isso ajudará a visualizar as dimensões da imagem */
+}
+
+/* Nome do usuário */
+.card h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 20px;  /* Ajuste o espaço entre a imagem e o nome */
+}
+
+.edit-user {
+    display: flex;
+    margin: 10px;
+    justify-content: center
+}

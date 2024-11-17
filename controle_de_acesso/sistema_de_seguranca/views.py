@@ -126,12 +126,12 @@ def redefinir_senha(request, codigo_recuperacao):
 
     return render(request, 'redefinir_senha.html', {"codigo_recuperacao": codigo_recuperacao})
 
-@user_passes_test(lambda u: check_cargo(u, ['Funcionario', 'Gerente', 'Assistente']))
+@user_passes_test(lambda u: check_cargo(u, ['CEO','Funcionario', 'Gerente', 'Assistente']))
 def lista_de_usuarios(request):
     usuarios = User.objects.all()  # Pega todos os usuários cadastrados
     return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
 
-@user_passes_test(lambda u: check_cargo(u, ['Gerente', 'Assistente']))
+@user_passes_test(lambda u: check_cargo(u, ['CEO', 'Gerente']), login_url='login')
 def adicionar_usuario(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -144,13 +144,15 @@ def adicionar_usuario(request):
                 with transaction.atomic():
                     usuario = User.objects.create_user(username=username, email=email, password=senha)
 
+                    # Se o cargo for 'CEO', configura as permissões de superusuário
                     if cargo == 'CEO':
                         usuario.is_superuser = True
                         usuario.is_staff = True
                     usuario.save()
 
-                    # Criação do perfil associado ao usuário
-                    Profile.objects.create(user=usuario, cargo=cargo)
+                    # Verifica se o perfil já existe para esse usuário
+                    if not hasattr(usuario, 'profile'):  # Verifica se o perfil já foi criado
+                        Profile.objects.create(user=usuario, cargo=cargo)
                     
                     messages.success(request, 'Usuário criado com sucesso.')
                     return redirect('lista_de_usuarios')  # Redireciona após criação

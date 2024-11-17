@@ -25,6 +25,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     codigo_recuperacao = models.CharField(max_length=20, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
     cargo = models.CharField(max_length=100, choices=cargo_choices, blank=True)
 
     def __str__(self):

@@ -1,4 +1,7 @@
 from .models import Profile
 
-def check_cargo(user, required_cargo):
-    return user.is_authenticated and hasattr(user, 'profile') and user.profile.cargo in required_cargo or user.is_staff
+def check_cargo(user, cargos_validos):
+    try:
+        return user.profile.cargo in cargos_validos  # Certifique-se de que o perfil está sendo acessado
+    except user.profile.DoesNotExist:
+        return False
