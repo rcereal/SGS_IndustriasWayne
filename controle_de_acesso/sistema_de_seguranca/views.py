@@ -126,12 +126,12 @@ def redefinir_senha(request, codigo_recuperacao):
 
     return render(request, 'redefinir_senha.html', {"codigo_recuperacao": codigo_recuperacao})
 
-@user_passes_test(lambda u: check_cargo(u, ['CEO','Funcionario', 'Gerente', 'Assistente']))
+@user_passes_test(lambda u: check_cargo(u, ['Funcionario', 'Gerente', 'Assistente']))
 def lista_de_usuarios(request):
     usuarios = User.objects.all()  # Pega todos os usuários cadastrados
     return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
 
-@user_passes_test(lambda u: check_cargo(u, ['CEO', 'Gerente']), login_url='login')
+@user_passes_test(lambda u: check_cargo(u, ['Gerente', 'Assistente']))
 def adicionar_usuario(request):
     if request.method == 'POST':
         username = request.POST.get('username')

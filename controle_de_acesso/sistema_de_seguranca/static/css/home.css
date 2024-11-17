@@ -5,17 +5,8 @@ header {
     padding: 10px 20px;
 }
 
-.title {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-}
-
 .card-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: block;
     padding: 15px;
     margin: 10px 0;
     background-color: #fff;
@@ -25,7 +16,6 @@ header {
     text-decoration: none;
     font-weight: 500;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    gap: 10px;
 }
 
 .card-link img {

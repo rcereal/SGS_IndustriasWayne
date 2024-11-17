@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 
-{% load static %}
-
 {% block title %}Página Inicial - Sistema de Segurança{% endblock %}
 
 {% block content %}
-    <h1 class="title">Bem-vindo ao Sistema de Gerenciamento de Segurança</h1>
+    <h1>Bem-vindo ao Sistema de Gerenciamento de Segurança</h1>
     <nav>
         <div class="resource-list">
             {% if user.is_authenticated %}
@@ -24,17 +22,14 @@
                     <a href="{% url 'home' %}" class="card-link">
                         <h5>Home</h5>
                     </a>
-                    {% elif user.is_superuser %}
+                {% elif user.is_superuser %}
                     <a href="{% url 'lista_de_usuarios' %}" class="card-link">
-                        <img src="{% static 'images/listadeusuario.jpg' %}" alt="Lista de Usuários" class="icon">
                         <h5>Lista de Usuários</h5>
                     </a>
                     <a href="{% url 'lista_de_recursos' %}" class="card-link">
-                        <img src="{% static 'images/listaderecursos.jpg' %}" alt="Lista de Recursos" class="icon">
                         <h5>Lista de Recursos</h5>
                     </a>
                 {% endif %}
-                
             {% else %}
                 <a href="{% url 'login' %}" class="card-link">
                     <h5>Login</h5>
