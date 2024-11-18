@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Página Inicial - Sistema de Segurança{% endblock %}
 
 {% block content %}
-    <h1>Bem-vindo ao Sistema de Gerenciamento de Segurança</h1>
+    <h1 class="title">Bem-vindo ao Sistema de Gerenciamento de Segurança</h1>
     <nav>
         <div class="resource-list">
             {% if user.is_authenticated %}
@@ -13,6 +15,7 @@
                     </a>
                 {% elif user.profile.cargo == 'Gerente' %}
                     <a href="{% url 'lista_de_usuarios' %}" class="card-link">
+                        <img src="{% static 'images/listadeusuario.jpg' %}" alt="Lista de Usuários" class="img-home">
                         <h5>Lista de Usuários</h5>
                     </a>
                     <a href="{% url 'lista_de_recursos' %}" class="card-link">
@@ -24,9 +27,11 @@
                     </a>
                 {% elif user.is_superuser %}
                     <a href="{% url 'lista_de_usuarios' %}" class="card-link">
+                        <img src="{% static 'images/listadeusuario.jpg' %}" alt="Lista de Usuários" class="img-home">
                         <h5>Lista de Usuários</h5>
                     </a>
                     <a href="{% url 'lista_de_recursos' %}" class="card-link">
+                        <img src="{% static 'images/backgroundformlogin.jpg' %}" alt="Lista de Recursos" class="img-home">
                         <h5>Lista de Recursos</h5>
                     </a>
                 {% endif %}
@@ -35,5 +40,6 @@
                     <h5>Login</h5>
                 </a>
             {% endif %}
+        </div>
     </nav>
 {% endblock %}

@@ -37,14 +37,12 @@
 
 /* Imagem do perfil */
 .profile-image {
-    width: 100px;  /* Ajuste o tamanho conforme necessário */
-    height: 100px; /* Ajuste o tamanho conforme necessário */
-    object-fit: cover; /* Para garantir que a imagem se ajuste ao tamanho do contêiner */
-    border-radius: 50%; /* Torna a imagem circular */
-    display: block;
-    margin: 0 auto;  /* Centraliza a imagem no card */
+    width: 100px;
+    height: 100px;
+    border-radius: 30%;
+    object-fit: cover;
+    border: 2px solid; /* Isso ajudará a visualizar as dimensões da imagem */
 }
-
 
 /* Nome do usuário */
 .card h5 {

@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Sistema de Segurança - Indústrias Wayne{% endblock %}</title>
-    {% load static %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="{% static 'favicons/baticon.png' %}" type="image/png">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-
-    {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/lista_de_usuarios.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/forms_adicionar_editar.css' %}">
-    {% endblock %}
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Sistema de Segurança - Indústrias Wayne{% endblock %}</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="icon" href="{% static 'favicons/baticon.png' %}" type="image/png">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+        {% block extra_css %}
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/lista_de_usuarios.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/forms_adicionar_editar.css' %}">
+        {% endblock %}
+    </head>
+    
 <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
     {% if not request.path == '/sistema_de_seguranca/login/' %}
     <header class="d-flex justify-content-between align-items-center px-3">
