@@ -12,34 +12,70 @@
     
         {% block extra_css %}
         <link rel="stylesheet" href="{% static 'css/home.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/lista_de_usuarios.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/forms_adicionar_editar.css' %}">
         {% endblock %}
+        <style>
+            body {
+            background-image: url("{% static 'images/backgroundhome.jpg' %}"); /* Caminho da imagem */
+            background-size: cover;   /* A imagem de fundo vai cobrir toda a tela */
+            background-position: center; /* Alinha a imagem no centro */
+            background-attachment: fixed; /* A imagem não se move ao rolar a página */
+            color: white; /* Ajusta a cor do texto para garantir boa visibilidade */
+            height: 100vh; /* Faz com que o fundo ocupe toda a altura da tela */
+            position: relative;
+        }
+
+        /* Filtro de desfoque no background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("{% static 'images/backgroundhome.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px); /* Aplica o desfoque */
+            z-index: -1; /* Coloca o filtro de desfoque atrás do conteúdo */
+        }
+
+        /* Garantir que o conteúdo da página fique visível */
+        .container {
+            position: relative;
+            z-index: 1; /* Coloca o conteúdo acima do fundo borrado */
+        }
+        </style>
     </head>
     
 <body style="display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
     {% if not request.path == '/sistema_de_seguranca/login/' %}
-    <header class="d-flex justify-content-between align-items-center px-3">
-        <h1 class="m-0">Indústrias Wayne</h1>
-
-        <div class="dropdown">
-            <button class="btn btn-dark dropdown-toggle" type="button" id="menuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                &#9776;
+    <header class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a href="{% url 'home' %}" class="navbar-brand">
+                <h1 class="m-0">Indústrias Wayne</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuButton">
-                <li><a class="dropdown-item" href="{% url 'profile' %}">Meu Perfil</a></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' %}">Meu Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
-    {% endif %}
-
+{% endif %}
     <div class="container" style="flex: 1;">
         {% block content %}{% endblock %}
     </div>
 
     {% if not request.path == '/sistema_de_seguranca/login/' %}
-    <footer style="text-align: center; padding: 10px;; color: black;">
+    <footer style="text-align: center; padding: 10px;; color: rgb(255, 255, 255);">
         <p>&copy; 2024 Indústrias Wayne</p>
     </footer>
     {% endif %}

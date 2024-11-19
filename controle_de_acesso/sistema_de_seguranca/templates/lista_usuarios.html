@@ -5,30 +5,32 @@
 {% block title %}Lista de Usuários{% endblock %}
 
 {% block content %}
-    <h1>Lista de Usuários</h1>
+<link rel="stylesheet" type="text/css" href="{% static 'css/lista_de_usuarios.css' %}">
+    <h1 class="title">Lista de Usuários</h1>
 
     <div class="resource-list">
         {% for usuario in usuarios %}
-            <a href="{% url 'detalhes_usuario' usuario.id %}" class="card-link">
-                <div class="card">
-                    <div class="image-container">
-                        {% if usuario.profile.profile_image %}
-                            <img src="{{ usuario.profile.profile_image.url }}" class="{{ usuario.username }}" alt="Imagem de perfil">
-                        {% else %}
-                            <img src="{% static 'images/default_img.jpg' %}" class="{{ usuario.username }}" alt="Imagem de perfil padrão">
-                        {% endif %}
-                    </div>
+        <a href="{% url 'detalhes_usuario' usuario.id %}" class="card-link">
+            <div class="card">
+                <div class="image-container">
+                    {% if usuario.profile.profile_image %}
+                        <img src="{{ usuario.profile.profile_image.url }}" alt="Foto de Perfil" class="img-thumbnail mt-3">
+                    {% else %}
+                        <img src="{% static 'images/default-profile.png' %}" alt="Foto de Perfil Padrão" class="img-thumbnail mt-3">
+                    {% endif %}
+                </div>
+                <div class="username-container">
                     <h5>{{ usuario.username }}</h5>
                 </div>
-            </a>
+            </div>
+        </a>
         {% empty %}
             <p>Nenhum usuário encontrado.</p>
         {% endfor %}
     </div>
     
 
-    <div class="edit-user">
-        <!-- Link para adicionar um novo usuário, não precisa de user_id -->
+    <div class="create-user">
         <a href="{% url 'adicionar_usuario' %}" class="card-link">
             <h5>Criar Novo Usuário</h5>
         </a>

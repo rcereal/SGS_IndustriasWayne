@@ -1,56 +1,69 @@
 {% extends 'base.html' %}
-{% load static %}  <!-- Carregar a tag static antes de utilizá-la -->
+{% load static %}
 
-{% block title %}Criar Novo Usuário{% endblock %}
+{% block title %}
+    {% if usuario %}Editar Usuário{% else %}Adicionar Usuário{% endif %}
+{% endblock %}
 
 {% block content %}
-    <!-- Carregando o arquivo CSS corretamente -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/forms_adicionar_editar.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/forms_adicionar_editar.css' %}">
 
-    <h1>Criar Novo Usuário</h1>
+<div class="container mt-5">
+    <h1 class="text-center">{% if usuario %}Editar Usuário: {{ usuario.username }}{% else %}Criar Novo Usuário{% endif %}</h1>
 
-    <div class="new-user">
-        <form method="post">
-            {% csrf_token %}
-            <label for="username">Nome de Usuario: </label>
-            <input type="text" name="username" required> <br><br>
+    <form method="post" enctype="multipart/form-data" class="form-container mx-auto">
+        {% csrf_token %}
 
-            <label for="full-name">Nome Completo: </label>
-            <input type="text" name="full-name" required> <br><br>
+        <div class="mb-3">
+            <label for="username" class="form-label">Nome de Usuário:</label>
+            <input type="text" id="username" name="username" class="form-control" value="{{ usuario.username|default_if_none:'' }}" required>
+        </div>
 
-            <label for="email">Email: </label>
-            <input type="email" name="email" required><br><br>
+        <div class="mb-3">
+            <label for="full-name" class="form-label">Nome Completo:</label>
+            <input type="text" id="full-name" name="full-name" class="form-control" value="{{ usuario.get_full_name|default_if_none:'' }}" required>
+        </div>
 
-            <label for="password">Senha: </label>
-            <input type="password" name="password" required><br><br>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" value="{{ usuario.email|default_if_none:'' }}" required>
+        </div>
 
-            <label for="cargo">Cargo:</label>
-            <select name="cargo" required>
-                <option value="CEO">CEO</option>
-                <option value="Gerente">Gerente</option>
-                <option value="Assistente">Assistente</option>
-                <option value="Funcionario">Funcionario</option>
-            </select><br><br>
+        <div class="mb-3">
+            <label for="password" class="form-label">Senha:</label>
+            <input type="password" id="password" name="password" class="form-control" {% if not usuario %}required{% endif %}>
+        </div>
 
-            <label for="profile_picture">Foto de Perfil: </label>
-            <input type="file" name="profile_picture"><br><br>
+        <div class="mb-3">
+            <label for="cargo" class="form-label">Cargo:</label>
+            <select id="cargo" name="cargo" class="form-select" required>
+                <option value="">Selecione um cargo</option>
+                {% for valor, rotulo in usuario.profile.cargo_choices %}
+                    <option value="{{ valor }}" {% if usuario and usuario.profile.cargo == valor %}selected{% endif %}>
+                        {{ rotulo }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
 
-            <button type="submit">Criar Usuário</button><br>
+        <div class="mb-3">
+            <label for="profile_picture" class="form-label">Foto de Perfil:</label>
+            <input type="file" id="profile_picture" name="profile_picture" class="form-control">
+        </div>
 
-        </form>
-    </div> <br>
+        <button type="submit" class="btn btn-primary w-100">
+            {% if usuario %}Atualizar Usuário{% else %}Criar Usuário{% endif %}
+        </button>
+    </form>
 
-    {% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
+    {% if usuario %}
+    <div class="text-center mt-3">
+        <a href="{% url 'excluir_usuario' usuario.id %}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir Usuário</a>
     </div>
     {% endif %}
 
-    <div>
-        <a href="{% url 'lista_de_usuarios' %}">Voltar para a lista de usuários</a>
+    <div class="text-center mt-3">
+        <a href="{% url 'lista_de_usuarios' %}" class="btn btn-secondary">Voltar para a Lista de Usuários</a>
     </div>
+</div>
 {% endblock %}

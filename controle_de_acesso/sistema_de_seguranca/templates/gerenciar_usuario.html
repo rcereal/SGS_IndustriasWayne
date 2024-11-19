@@ -21,7 +21,7 @@
 
         <div class="mb-3">
             <label for="full-name" class="form-label">Nome Completo:</label>
-            <input type="text" name="full-name" class="form-control" value="{{ usuario.get_full_name }}" required>
+            <input type="text" name="full_name" class="form-control" value="{{ usuario.get_full_name }}" required>
         </div>
 
         <div class="mb-3">
@@ -31,7 +31,7 @@
 
         <div class="mb-3">
             <label for="password" class="form-label">Senha:</label>
-            <input type="password" name="password" class="form-control" required>
+            <input type="password" name="password" class="form-control" {% if not usuario %}required{% endif %}>
         </div>
 
         <div class="mb-3">
@@ -47,8 +47,16 @@
         </div>
 
         <div class="mb-3">
-            <label for="profile_picture" class="form-label">Foto de Perfil:</label>
-            <input type="file" name="profile_picture" class="form-control">
+            <label for="profile_image" class="form-label">Foto de Perfil:</label>
+            <input type="file" name="profile_image" class="form-control">
+            
+            {% if form.profile_image.errors %}
+                <div class="alert alert-danger mt-2">
+                    {% for error in form.profile_image.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
         <button type="submit" class="btn btn-primary w-100">
@@ -66,4 +74,11 @@
         <a href="{% url 'lista_de_usuarios' %}" class="btn btn-secondary">Voltar para a Lista de Usuários</a>
     </div>
 </div>
+
+{% if usuario.profile.profile_image %}
+    <img src="{{ usuario.profile.profile_image.url }}" alt="Foto de Perfil" class="img-thumbnail mt-3">
+{% else %}
+    <img src="{% static 'images/default-profile.png' %}" alt="Foto de Perfil Padrão" class="img-thumbnail mt-3">
+{% endif %}
+
 {% endblock %}

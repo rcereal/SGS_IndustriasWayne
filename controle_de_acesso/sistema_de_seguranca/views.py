@@ -177,58 +177,43 @@ def adicionar_usuario(request):
 
     return render(request, 'adicionar_usuario.html')
 
-@user_passes_test(lambda u: check_cargo(u, ['Gerente', 'CEO']))  # Limite de acesso para Gerente e CEO
+@user_passes_test(lambda u: check_cargo(u, ['Gerente', 'CEO']))
 def gerenciar_usuario(request, user_id=None):
     usuario = get_object_or_404(User, id=user_id) if user_id else None
 
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
+        nome_completo = request.POST.get('full_name')
         senha = request.POST.get('password')
         cargo = request.POST.get('cargo')
 
         try:
             with transaction.atomic():
                 if usuario:
-                    # Atualização do usuário existente
+                    # Atualizar usuário existente
                     usuario.username = username
                     usuario.email = email
+                    if nome_completo:
+                        nomes = nome_completo.split(' ')
+                        usuario.first_name = nomes[0]
+                        usuario.last_name = ' '.join(nomes[1:]) if len(nomes) > 1 else ''
                     if senha:
                         usuario.set_password(senha)
                     usuario.save()
 
-                    # Atualização ou criação do perfil associado
+                    # Atualizar perfil
                     profile, created = Profile.objects.get_or_create(user=usuario)
                     profile.cargo = cargo
+                    if 'profile_picture' in request.FILES:
+                        profile.profile_image = request.FILES['profile_picture']
                     profile.save()
-
-                    # Atualização das permissões com base no cargo
-                    if cargo == 'CEO':
-                        usuario.is_superuser = True
-                        usuario.is_staff = True
-                    else:
-                        usuario.is_superuser = False 
-                        usuario.is_staff = cargo in ['Gerente']
-                    usuario.save()
 
                     messages.success(request, 'Usuário atualizado com sucesso.')
                 else:
-                    # Criação de um novo usuário
-                    usuario = User.objects.create_user(username=username, email=email, password=senha)
-                    Profile.objects.create(user=usuario, cargo=cargo)
+                    # Criação de novo usuário (código similar à view `adicionar_usuario`).
+                    pass
 
-                    # Definir permissões caso o cargo seja 'CEO'
-                    if cargo == 'CEO':
-                        usuario.is_superuser = True
-                        usuario.is_staff = True
-                    else:
-                        usuario.is_superuser = False 
-                        usuario.is_staff = cargo in ['Gerente']
-
-                    usuario.save()
-                    messages.success(request, 'Usuário criado com sucesso.')
-
-                # Redirecionar para a lista de usuários após sucesso
                 return redirect('lista_de_usuarios')
         except Exception as e:
             messages.error(request, f'Ocorreu um erro: {e}')

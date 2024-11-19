@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.exceptions import ValidationError
 
 class Recurso(models.Model):
     nome = models.CharField(max_length=100)
@@ -15,6 +16,14 @@ class Recurso(models.Model):
     def  __str__(self):
         return self.nome
     
+def validate_image(image):
+    file_size = image.file.size
+    limit = 5 * 1024 * 1024  # Limite de 5MB
+    if file_size > limit:
+        raise ValidationError("A imagem não pode ser maior que 5MB.")
+    if not image.name.endswith(('jpg', 'jpeg', 'png', 'gif')):
+        raise ValidationError("Formato de imagem não suportado.")
+
 class Profile(models.Model):
     cargo_choices = [
         ('CEO', 'CEO'),
@@ -26,7 +35,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     codigo_recuperacao = models.CharField(max_length=20, blank=True)
     cargo = models.CharField(max_length=100, choices=cargo_choices, blank=True)
-    profile_image = models.ImageField(upload_to='profile_images/', default='default_img.jpg')  # Adiciona o campo de imagem
+    profile_image = models.ImageField(upload_to='profile_images/', validators=[validate_image], blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'

@@ -5,6 +5,36 @@ header {
     padding: 10px 20px;
 }
 
+.title {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding: 1rem 2rem;
+    background-color: #333;
+    border-radius: 5px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease-in-out;
+}
+
+.title:hover {
+    background-color: #444;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.resource-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .card-link {
     display: block;
     padding: 15px;
@@ -19,16 +49,17 @@ header {
 }
 
 .card-link img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 12rem;
-    height: 12rem;
-    object-fit: cover;
+    display: block; /* Alterando para block para melhor controle */
+    width: 100%; /* A imagem vai ocupar toda a largura do contêiner */
+    height: auto; /* A altura se ajusta proporcionalmente à largura */
+    max-width: 12rem; /* A largura máxima da imagem é 12rem */
+    max-height: 12rem; /* Limita a altura máxima da imagem */
+    object-fit: cover; /* Garante que a imagem cubra o espaço disponível sem distorcer */
     border-radius: 50%;
     margin: 0 auto;
     margin-bottom: 9px;
 }
+
 .card-link h5 {
     display: flex;
     justify-content: center;
@@ -36,7 +67,6 @@ header {
     font-size: 1.2rem;
     font-weight: bold;
 }
-
 
 .card-link:hover {
     background-color: #f8f9fa;
@@ -60,10 +90,58 @@ header {
     text-align: center;
 }
 
+@media (max-width: 576px) {
+    .title {
+        font-size: 1.8rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
 
-/* Responsividade */
-@media (max-width: 768px) {
     .resource-list a, .edit-user a {
         width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .card-link {
+        padding: 10px;
+    }
+
+    .card-link img {
+        width: 8rem;
+        height: 8rem;
+    }
+
+    .card-link h5 {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .resource-list a, .edit-user a {
+        width: 48%;
+    }
+
+    .card-link img {
+        width: 10rem;
+        height: 10rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .title {
+        font-size: 2.2rem;
+    }
+
+    .resource-list a, .edit-user a {
+        width: calc(33% - 10%);
+    }
+
+    .card-link img {
+        width: 12rem;
+        height: 12rem;
     }
 }
