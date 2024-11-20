@@ -1,46 +1,116 @@
-/* user-form.css - Estilo específico para a página de adicionar/editar usuário */
-form input, form select, form button {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+/* Container do formulário */
+.form-container-user {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-form button {
+/* Estilos para os títulos */
+h1 {
+    font-size: 24px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Estilo para os labels */
+.form-label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Estilos para os inputs e selects */
+.form-control, .form-select {
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Estilo para o botão de submit */
+.btn-primary {
     background-color: #007bff;
     color: white;
-    font-weight: bold;
     border: none;
+    padding: 12px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 16px;
 }
 
-form button:hover {
+.btn-primary:hover {
     background-color: #0056b3;
 }
 
-form label {
-    font-weight: 500;
-    margin-bottom: 5px;
+/* Estilo para o botão de excluir */
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-form .messages {
-    margin-top: 15px;
+.btn-danger:hover {
+    background-color: #c82333;
 }
 
-.add-user-container {
-    width: 80%;  /* Ajuste conforme necessário */
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+/* Estilo para o botão de voltar */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-/* Responsividade para telas menores */
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Alerta de erros no formulário */
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Estilos para a imagem de perfil */
+.img-thumbnail {
+    max-width: 150px;
+    border-radius: 50%;
+    margin-top: 20px;
+}
+
+/* Estilo para campos de entrada de texto */
+.mb-3 {
+    margin-bottom: 20px;
+}
+
+/* Ajustando o layout responsivo */
 @media (max-width: 768px) {
-    .add-user-container {
-        width: 90%;
+    .form-container-user {
+        padding: 15px;
+        max-width: 100%;
+    }
+    .form-label {
+        font-size: 14px;
+    }
+    .form-control, .form-select {
+        font-size: 14px;
+    }
+    .btn-primary, .btn-danger, .btn-secondary {
+        font-size: 14px;
     }
 }

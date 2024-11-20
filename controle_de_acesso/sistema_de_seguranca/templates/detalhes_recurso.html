@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Detalhes do Recurso{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/detalhes_recurso.css' %}">
+
+    <div class="perfil-container mt-5">
+        <h1 class="title">{{ recurso.nome }}</h1>
+
+        <div class="card p-4 shadow mt-3">
+            <div class="card-header">
+                Detalhes do Recurso
+            </div>
+
+            <div class="card-body">
+                <p><strong>Nome do Recurso:</strong> {{ recurso.nome }}</p>
+                <p><strong>Status:</strong> {{ recurso.status }}</p>
+                <p><strong>Descrição:</strong> {{ recurso.descricao }}</p>
+                <p><strong>Data de Criação:</strong> {{ recurso.criado_em|date:"d/m/Y" }}</p>
+
+                {% if recurso.imagem %}
+                    <div class="resource-image">
+                        <img src="{{ recurso.imagem.url }}" alt="Imagem do Recurso">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="back-to-list">
+            <a href="{% url 'lista_de_recursos' %}" class="btn btn-secondary">Voltar para a Lista de Recursos</a>
+        </div>
+    </div>
+{% endblock %}

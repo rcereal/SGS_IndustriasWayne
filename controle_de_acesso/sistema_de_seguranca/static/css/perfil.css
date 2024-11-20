@@ -1,0 +1,91 @@
+/* perfil.css */
+.perfil-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-container h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.perfil-container img {
+    border-radius: 50%;
+    border: 3px solid #333;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.perfil-container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.perfil-container p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+}
+
+.perfil-container p strong {
+    color: #333;
+}
+
+.perfil-container .btn {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.perfil-container .btn:hover {
+    background-color: #5a6268;
+    color: #fff;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .perfil-container {
+        padding: 15px;
+        margin-top: 10px;
+    }
+
+    .perfil-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .perfil-container img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .perfil-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .perfil-container p {
+        font-size: 1rem;
+    }
+
+    .perfil-container .btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}

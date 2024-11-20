@@ -1,0 +1,103 @@
+/* Estilo geral da página */
+.perfil-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Título principal */
+h1.title {
+    text-align: center;
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Card com detalhes do recurso */
+.card {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Cabeçalho do recurso */
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+/* Detalhes do recurso */
+.card-body {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Estilo para as informações dentro do card */
+.card-body p {
+    margin-bottom: 10px;
+}
+
+.card-body strong {
+    color: #333;
+}
+
+/* Estilo dos botões */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    opacity: 0.8;
+}
+
+/* Estilo para a área de imagens do recurso */
+.resource-image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.resource-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Voltar ao botão da lista de recursos */
+.back-to-list {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .perfil-container {
+        padding: 15px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+}

@@ -8,8 +8,8 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/forms_adicionar_editar.css' %}">
 
-<div class="container mt-5">
-    <h1 class="text-center">{% if usuario %}Editar Usuário: {{ usuario.username }}{% else %}Criar Novo Usuário{% endif %}</h1>
+<div class="form-container-user mt-5">
+    <h1 class="text-center">{% if usuario %}Editar Usuário{% else %}Criar Novo Usuário{% endif %}</h1>
 
     <form method="post" enctype="multipart/form-data" class="form-container mx-auto">
         {% csrf_token %}
@@ -74,11 +74,5 @@
         <a href="{% url 'lista_de_usuarios' %}" class="btn btn-secondary">Voltar para a Lista de Usuários</a>
     </div>
 </div>
-
-{% if usuario.profile.profile_image %}
-    <img src="{{ usuario.profile.profile_image.url }}" alt="Foto de Perfil" class="img-thumbnail mt-3">
-{% else %}
-    <img src="{% static 'images/default-profile.png' %}" alt="Foto de Perfil Padrão" class="img-thumbnail mt-3">
-{% endif %}
 
 {% endblock %}

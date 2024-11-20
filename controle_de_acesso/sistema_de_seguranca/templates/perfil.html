@@ -1,22 +1,25 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-<div class="container mt-5">
+<link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+
+<div class="perfil-container mt-5">
     <h1 class="text-center">Perfil do Usuário</h1>
 
     <div class="card p-4 shadow mt-3">
         <div class="text-center mb-4">
             <!-- Exibição da imagem de perfil -->
-            {% if perfil and perfil.profile_image %}
+            {% if usuario.profile and usuario.profile.profile_image %}
                 <img 
-                    src="{{ perfil.profile_image.url }}" 
+                    src="{{ usuario.profile.profile_image.url }}" 
                     alt="Foto de Perfil" 
                     class="rounded-circle" 
                     style="width: 150px; height: 150px; object-fit: cover;">
             {% else %}
-                <!-- Imagem padrão caso o usuário não tenha uma foto -->
                 <img 
-                    src="{{ MEDIA_URL }}default_profile_picture.jpg" 
+                    src="{% static 'images/default_profile_picture.jpg' %}" 
                     alt="Foto Padrão" 
                     class="rounded-circle" 
                     style="width: 150px; height: 150px; object-fit: cover;">
@@ -27,9 +30,9 @@
         <p><strong>Nome de Usuário:</strong> {{ usuario.username }}</p>
         <p><strong>Email:</strong> {{ usuario.email }}</p>
 
-        {% if perfil %}
-            <p><strong>Nome Completo:</strong> {{ perfil.nome_completo }}</p>
-            <p><strong>Cargo:</strong> {{ perfil.get_cargo_display }}</p>
+        {% if usuario.profile %}
+            <p><strong>Nome Completo:</strong> {{ usuario.get_full_name }}</p>
+            <p><strong>Cargo:</strong> {{ usuario.profile.get_cargo_display }}</p>
             <p><strong>Data de Cadastro:</strong> {{ usuario.date_joined|date:"d/m/Y" }}</p>
         {% else %}
             <p class="text-muted">Nenhuma informação adicional foi fornecida.</p>

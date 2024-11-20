@@ -3,11 +3,11 @@
 {% block title %}Lista de Recursos{% endblock %}
 
 {% block content %}
-    <h1>Lista de Recursos</h1>
+    <h1 class="title">Lista de Recursos</h1>
 
     <div class="resource-list">
         {% for recurso in recursos %}
-            <a href="{% url 'editar_recurso' recurso.id %}" class="card-link">
+            <a href="{% url 'detalhes_recurso' recurso.id %}" class="card-link">
                 <h5>{{ recurso.nome }} - {{ recurso.status }}</h5>
             </a>
         {% empty %}

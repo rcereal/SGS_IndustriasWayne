@@ -76,6 +76,11 @@ def excluir_recurso(request, recurso_id):
     recurso.delete()
     return redirect('lista_de_recursos')
 
+@login_required
+def detalhes_recurso(request,recurso_id):
+    recurso = get_object_or_404(Recurso, id=recurso_id)
+    return render(request, 'detalhes_recurso.html',{'recurso': recurso})
+
 def solicitar_recuperacao_senha(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -191,7 +196,6 @@ def gerenciar_usuario(request, user_id=None):
         try:
             with transaction.atomic():
                 if usuario:
-                    # Atualizar usuário existente
                     usuario.username = username
                     usuario.email = email
                     if nome_completo:
@@ -202,7 +206,6 @@ def gerenciar_usuario(request, user_id=None):
                         usuario.set_password(senha)
                     usuario.save()
 
-                    # Atualizar perfil
                     profile, created = Profile.objects.get_or_create(user=usuario)
                     profile.cargo = cargo
                     if 'profile_picture' in request.FILES:

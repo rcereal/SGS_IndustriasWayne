@@ -1,0 +1,124 @@
+/* detalhes_usuario.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container-detalhes {
+    max-width: 900px;
+    margin: 110px auto; /* Ajuste a margem superior para afastar do topo */
+    padding: 20px;
+}
+
+.bg-h1 {
+    background: linear-gradient(to right, #007bff, #2b2d30); /* Gradiente de fundo */
+    padding: 15px 0; /* Espaçamento ao redor do título */
+    margin-bottom: 30px; /* Espaço abaixo do fundo */
+    border-radius: 8px; /* Bordas arredondadas, se necessário */
+}
+
+/* Estilo para o título dentro da área de fundo */
+.titulo-detalhes {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff; /* Cor do texto */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil para dar profundidade */
+    margin: 0; /* Remove margens extras */
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.card-body p {
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    font-size: 1.1rem;
+    line-height: 1.8; /* Melhor espaçamento entre as linhas */
+    margin-bottom: 15px; /* Espaçamento maior entre os parágrafos */
+    padding-bottom: 10px; /* Espaçamento inferior para dar um respiro */
+    border-bottom: 1px solid #f0f0f0; /* Linha fina separando os parágrafos */
+    text-align: center; /* Justifica o texto ao centro */
+    width: 100%; /* Faz com que o parágrafo ocupe toda a largura disponível */
+}
+
+.card-body p:last-child {
+    border-bottom: none; /* Remove a linha no último parágrafo */
+}
+
+.card-body p strong {
+    font-weight: bold;
+    color: #007bff; /* Azul chamativo para destacar */
+    text-transform: uppercase; /* Maiúsculas para dar ênfase */
+    letter-spacing: 0.5px; /* Espaçamento entre as letras para dar mais "presença" */
+}
+
+
+.btn {
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-info {
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.btn-info:hover {
+    background-color: #007bff;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+
+.mt-4 {
+    margin-top: 20px;
+}
+
+.mt-3 {
+    margin-top: 15px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+}

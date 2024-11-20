@@ -1,26 +1,37 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Recurso</title>
-</head>
-<body>
-    <div class="container">
-        <h1>Editar Recurso</h1>
+{% extends 'base.html' %}
 
-        <div class="form-container">
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/adicionar_recurso.css' %}">
+
+<div class="container-recurso">
+    <h1>Editar Recurso</h1>
+    <div class="card">
+        <div class="form-container-recurso">
             <form method="post">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
-                {{ form.as_p }}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% if field.errors %}
+                            <div class="text-danger">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
                 <button type="submit">Atualizar</button>
             </form>
         </div>
-
-        <div class="back-link">
-            <a href="{% url 'lista_de_recursos' %}">Voltar à lista de recursos</a>
-        </div>
     </div>
-</body>
-</html>
+    <div class="back-link">
+        <a href="{% url 'lista_de_recursos' %}">Voltar à Lista de Recursos</a>
+    </div>
+</div>
+{% endblock %}

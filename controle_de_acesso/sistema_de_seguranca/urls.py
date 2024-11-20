@@ -11,6 +11,7 @@ urlpatterns = [
     path('adicionar_recurso/', views.adicionar_recurso, name='adicionar_recurso'),
     path('editar_recurso/<int:recurso_id>/', views.editar_recurso, name='editar_recurso'),
     path('recursos/excluir/<int:recurso_id>/', views.excluir_recurso, name='excluir_recurso'),
+    path('recurso/detalhes/<int:recurso_id>', views.detalhes_recurso, name='detalhes_recurso'),
     path('solicitar-recuperacao-senha/', views.solicitar_recuperacao_senha, name='solicitar_recuperacao_senha'),
     path('redefinir-senha/<str:codigo_recuperacao>/', views.redefinir_senha, name='redefinir_senha'),
     path('adicionar-usuario/', views.adicionar_usuario, name='adicionar_usuario'),
