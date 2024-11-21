@@ -141,46 +141,32 @@ def adicionar_usuario(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
-        nome_completo = request.POST.get('full_name')  # Nome completo pode ser vazio
+        nome_completo = request.POST.get('full_name')
         senha = request.POST.get('password')
         cargo = request.POST.get('cargo')
-        profile_picture = request.FILES.get('profile_picture')  # Foto de perfil é opcional
+        profile_image = request.FILES.get('profile_image')
 
         if username and email and senha and cargo:
             try:
                 with transaction.atomic():
-                    # Criar o usuário
-                    usuario = User.objects.create_user(username=username, email=email, password=senha)
+                    user = User.objects.create_user(username=username, email=email, password=senha)
+                    nomes = nome_completo.split(' ')
+                    user.first_name = nomes[0]
+                    user.last_name = ' '.join(nomes[1:]) if len(nomes) > 1 else ''
+                    user.save()
 
-                    # Configurar nome completo (dividindo em first_name e last_name)
-                    if nome_completo:
-                        nomes = nome_completo.split(' ')
-                        usuario.first_name = nomes[0]
-                        usuario.last_name = ' '.join(nomes[1:]) if len(nomes) > 1 else ''
-                    usuario.save()
-
-                    # Configurar permissões especiais para CEO
-                    if cargo == 'CEO':
-                        usuario.is_superuser = True
-                        usuario.is_staff = True
-                        usuario.save()
-
-                    # Criar perfil associado
-                    profile = Profile.objects.create(
-                        user=usuario,
-                        cargo=cargo,
-                        profile_picture=profile_picture  # Salvar a foto de perfil, se enviada
-                    )
-                    profile.save()
+                    Profile.objects.create(user=user, cargo=cargo, profile_image=profile_image)
 
                     messages.success(request, 'Usuário criado com sucesso.')
                     return redirect('lista_de_usuarios')
             except Exception as e:
-                messages.error(request, f'Ocorreu um erro ao criar o usuário: {e}')
+                messages.error(request, f'Erro ao criar usuário: {e}')
         else:
-            messages.error(request, 'Todos os campos obrigatórios devem ser preenchidos.')
+            messages.error(request, 'Preencha todos os campos obrigatórios.')
 
-    return render(request, 'adicionar_usuario.html')
+    cargo_choices = Profile.CARGO_CHOICES
+    return render(request, 'adicionar_usuario.html', {'cargo_choices': cargo_choices})
+
 
 @user_passes_test(lambda u: check_cargo(u, ['Gerente', 'CEO']))
 def gerenciar_usuario(request, user_id=None):
@@ -208,20 +194,23 @@ def gerenciar_usuario(request, user_id=None):
 
                     profile, created = Profile.objects.get_or_create(user=usuario)
                     profile.cargo = cargo
-                    if 'profile_picture' in request.FILES:
-                        profile.profile_image = request.FILES['profile_picture']
+                    if 'profile_image' in request.FILES:
+                        profile.profile_image = request.FILES['profile_image']
                     profile.save()
 
                     messages.success(request, 'Usuário atualizado com sucesso.')
                 else:
-                    # Criação de novo usuário (código similar à view `adicionar_usuario`).
+                    # A lógica de criação poderia ser reutilizada aqui.
                     pass
 
                 return redirect('lista_de_usuarios')
         except Exception as e:
             messages.error(request, f'Ocorreu um erro: {e}')
 
-    return render(request, 'gerenciar_usuario.html', {"usuario": usuario})
+    return render(request, 'gerenciar_usuario.html', {
+        "usuario": usuario,
+        "cargo_choices": Profile.CARGO_CHOICES,
+    })
 
 @user_passes_test(lambda u: check_cargo(u, ['Gerente']))
 def excluir_usuario(request, user_id):

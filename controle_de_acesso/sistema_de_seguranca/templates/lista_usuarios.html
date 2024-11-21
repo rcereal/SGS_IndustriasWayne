@@ -12,13 +12,13 @@
         {% for usuario in usuarios %}
         <a href="{% url 'detalhes_usuario' usuario.id %}" class="card-link">
             <div class="card">
-                <div class="image-container">
-                    {% if usuario.profile.profile_image %}
-                        <img src="{{ usuario.profile.profile_image.url }}" alt="Foto de Perfil" class="img-thumbnail mt-3">
+                <div class="image-container-list">
+                    {% if usuario.Profile.profile_image %}
+                        <img src="{{ usuario.Profile.profile_image.url }}" alt="Foto de Perfil" class="img-thumbnail mt-3">
                     {% else %}
-                        <img src="{% static 'images/default-profile.png' %}" alt="Foto de Perfil Padrão" class="img-thumbnail mt-3">
+                        <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Foto de Perfil Padrão" class="img-thumbnail mt-3">
                     {% endif %}
-                </div>
+                </div>                
                 <div class="username-container">
                     <h5>{{ usuario.username }}</h5>
                 </div>

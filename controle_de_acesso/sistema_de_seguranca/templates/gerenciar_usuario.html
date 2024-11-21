@@ -38,13 +38,13 @@
             <label for="cargo" class="form-label">Cargo:</label>
             <select name="cargo" class="form-select" required>
                 <option value="">Selecione um cargo</option>
-                {% for valor, rotulo in usuario.profile.cargo_choices %}
+                {% for valor, rotulo in cargo_choices %}
                     <option value="{{ valor }}" {% if usuario and usuario.profile.cargo == valor %}selected{% endif %}>
                         {{ rotulo }}
                     </option>
                 {% endfor %}
             </select>
-        </div>
+        </div>        
 
         <div class="mb-3">
             <label for="profile_image" class="form-label">Foto de Perfil:</label>
@@ -52,7 +52,7 @@
             
             {% if form.profile_image.errors %}
                 <div class="alert alert-danger mt-2">
-                    {% for error in form.profile_image.errors %}
+                    {% for error in form.Profile_image.errors %}
                         <p>{{ error }}</p>
                     {% endfor %}
                 </div>

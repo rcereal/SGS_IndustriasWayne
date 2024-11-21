@@ -20,6 +20,7 @@ class Form_do_Recurso(forms.ModelForm):
 
     def clean_status(self):
         status = self.cleaned_data.get('status')
-        if status not in dict(self.Meta.model.STATUS_CHOICES):
+        if status not in dict(Recurso._meta.get_field('status').choices):
             raise forms.ValidationError('Status inválido.')
         return status
+

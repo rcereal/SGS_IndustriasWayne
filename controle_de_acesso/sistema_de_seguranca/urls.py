@@ -21,4 +21,6 @@ urlpatterns = [
     path('lista-usuarios/', views.lista_de_usuarios, name='lista_de_usuarios'),
     path('perfil/', views.perfil_view, name='profile'),
     path('detalhes_usuario/<int:user_id>/', views.detalhes_usuario, name='detalhes_usuario'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,6 +12,7 @@
 .resource-list .card:hover {
     transform: scale(1.05);
 }
+
 .resource-list {
     display: flex;
     flex-direction: column;
