@@ -20,7 +20,7 @@ class Recurso(models.Model):
 
 def validate_image(image):
     file_size = image.file.size
-    limit = 5 * 1024 * 1024  # Limite de 5MB
+    limit = 5 * 1024 * 1024
     if file_size > limit:
         raise ValidationError("A imagem não pode ser maior que 5MB.")
     if not image.name.endswith(('jpg', 'jpeg', 'png', 'gif')):
@@ -33,13 +33,14 @@ class Profile(models.Model):
         ('Funcionario', 'Funcionário'),
         ('Assistente', 'Assistente'),
     ]
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', unique=True)
+    codigo_recuperacao = models.CharField(max_length=20, blank=True)
     cargo = models.CharField(max_length=50, choices=CARGO_CHOICES)
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
 
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return self.user.username
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

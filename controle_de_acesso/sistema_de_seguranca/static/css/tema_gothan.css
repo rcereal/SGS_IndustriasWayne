@@ -1,5 +1,5 @@
 .login-background {
-    position: fixed; /* Fixa a imagem no fundo */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -47,7 +47,7 @@ h1 {
     font-size: 16px;
     color: #6c757d;
     transition: all 0.2s ease-out;
-    pointer-events: none; /* Impede interação com o label */
+    pointer-events: none;
 }
 
 .form-control:focus + .form-label,

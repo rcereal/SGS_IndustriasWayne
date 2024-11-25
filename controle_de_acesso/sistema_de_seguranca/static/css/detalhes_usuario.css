@@ -1,4 +1,3 @@
-/* detalhes_usuario.css */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -9,24 +8,23 @@ body {
 
 .container-detalhes {
     max-width: 900px;
-    margin: 110px auto; /* Ajuste a margem superior para afastar do topo */
+    margin: 110px auto;
     padding: 20px;
 }
 
 .bg-h1 {
-    background: linear-gradient(to right, #007bff, #2b2d30); /* Gradiente de fundo */
-    padding: 15px 0; /* Espaçamento ao redor do título */
-    margin-bottom: 30px; /* Espaço abaixo do fundo */
-    border-radius: 8px; /* Bordas arredondadas, se necessário */
+    background: linear-gradient(to right, #007bff, #2b2d30);
+    padding: 15px 0;
+    margin-bottom: 30px;
+    border-radius: 8px;
 }
 
-/* Estilo para o título dentro da área de fundo */
 .titulo-detalhes {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #ffffff; /* Cor do texto */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil para dar profundidade */
-    margin: 0; /* Remove margens extras */
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 0;
 }
 
 .card {
@@ -39,27 +37,26 @@ body {
 
 .card-body p {
     display: flex;
-    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    justify-content: center;
     font-size: 1.1rem;
-    line-height: 1.8; /* Melhor espaçamento entre as linhas */
-    margin-bottom: 15px; /* Espaçamento maior entre os parágrafos */
-    padding-bottom: 10px; /* Espaçamento inferior para dar um respiro */
-    border-bottom: 1px solid #f0f0f0; /* Linha fina separando os parágrafos */
-    text-align: center; /* Justifica o texto ao centro */
-    width: 100%; /* Faz com que o parágrafo ocupe toda a largura disponível */
+    line-height: 1.8;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: center;
+    width: 100%;
 }
 
 .card-body p:last-child {
-    border-bottom: none; /* Remove a linha no último parágrafo */
+    border-bottom: none;
 }
 
 .card-body p strong {
     font-weight: bold;
-    color: #007bff; /* Azul chamativo para destacar */
-    text-transform: uppercase; /* Maiúsculas para dar ênfase */
-    letter-spacing: 0.5px; /* Espaçamento entre as letras para dar mais "presença" */
+    color: #007bff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
-
 
 .btn {
     font-size: 1rem;
@@ -75,7 +72,6 @@ body {
     color: white;
     display: flex;
     justify-content: center;
-    
 }
 
 .btn-info:hover {
@@ -88,7 +84,6 @@ body {
     color: white;
     display: flex;
     justify-content: center;
-    
 }
 
 .btn-secondary:hover {

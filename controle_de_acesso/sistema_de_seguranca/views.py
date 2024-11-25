@@ -133,10 +133,10 @@ def redefinir_senha(request, codigo_recuperacao):
 
 @user_passes_test(lambda u: check_cargo(u, ['Funcionario', 'Gerente', 'Assistente']))
 def lista_de_usuarios(request):
-    usuarios = User.objects.all()  # Pega todos os usuários cadastrados
+    usuarios = User.objects.all()
     return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
 
-@user_passes_test(lambda u: check_cargo(u, ['Gerente', 'Assistente']))
+@user_passes_test(lambda u: check_cargo(u, ['CEO', 'Gerente', 'Assistente']))
 def adicionar_usuario(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -145,30 +145,34 @@ def adicionar_usuario(request):
         senha = request.POST.get('password')
         cargo = request.POST.get('cargo')
         profile_image = request.FILES.get('profile_image')
-
         if username and email and senha and cargo:
             try:
-                with transaction.atomic():
+                if User.objects.filter(username=username).exists():
+                    messages.error(request, 'Este nome de usuário já está em uso.')
+                elif User.objects.filter(email=email).exists():
+                    messages.error(request, 'Este e-mail já está em uso.')
+                else:
                     user = User.objects.create_user(username=username, email=email, password=senha)
                     nomes = nome_completo.split(' ')
                     user.first_name = nomes[0]
                     user.last_name = ' '.join(nomes[1:]) if len(nomes) > 1 else ''
                     user.save()
-
-                    Profile.objects.create(user=user, cargo=cargo, profile_image=profile_image)
-
+                    profile, created = Profile.objects.get_or_create(
+                        user=user,
+                        defaults={'cargo': cargo, 'profile_image': profile_image}
+                    )
+                    if not created:
+                        messages.warning(request, f'Perfil para o usuário {username} já existia e foi atualizado.')
                     messages.success(request, 'Usuário criado com sucesso.')
                     return redirect('lista_de_usuarios')
             except Exception as e:
                 messages.error(request, f'Erro ao criar usuário: {e}')
         else:
             messages.error(request, 'Preencha todos os campos obrigatórios.')
-
     cargo_choices = Profile.CARGO_CHOICES
     return render(request, 'adicionar_usuario.html', {'cargo_choices': cargo_choices})
 
-
-@user_passes_test(lambda u: check_cargo(u, ['Gerente', 'CEO']))
+@user_passes_test(lambda u: check_cargo(u, ['CEO', 'Gerente']))
 def gerenciar_usuario(request, user_id=None):
     usuario = get_object_or_404(User, id=user_id) if user_id else None
 
@@ -181,6 +185,14 @@ def gerenciar_usuario(request, user_id=None):
 
         try:
             with transaction.atomic():
+                if User.objects.filter(username=username).exclude(id=usuario.id if usuario else None).exists():
+                    messages.error(request, 'Este nome de usuário já está em uso.')
+                    return redirect('gerenciar_usuario', user_id=user_id)
+
+                if User.objects.filter(email=email).exclude(id=usuario.id if usuario else None).exists():
+                    messages.error(request, 'Este email já está em uso.')
+                    return redirect('gerenciar_usuario', user_id=user_id)
+
                 if usuario:
                     usuario.username = username
                     usuario.email = email
@@ -200,7 +212,6 @@ def gerenciar_usuario(request, user_id=None):
 
                     messages.success(request, 'Usuário atualizado com sucesso.')
                 else:
-                    # A lógica de criação poderia ser reutilizada aqui.
                     pass
 
                 return redirect('lista_de_usuarios')
@@ -212,11 +223,11 @@ def gerenciar_usuario(request, user_id=None):
         "cargo_choices": Profile.CARGO_CHOICES,
     })
 
-@user_passes_test(lambda u: check_cargo(u, ['Gerente']))
+@user_passes_test(lambda u: check_cargo(u, ['CEO','Gerente']))
 def excluir_usuario(request, user_id):
     usuario = get_object_or_404(User, id=user_id)
 
-    if usuario.is_staff:  # Impedir que o usuário exclua a si mesmo ou um superusuário
+    if usuario.is_staff:
         messages.error(request, 'Você não pode excluir este usuário.')
     else:
         usuario.delete()

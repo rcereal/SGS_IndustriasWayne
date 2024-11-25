@@ -1,22 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="change_password">
-        <form method="post">
-            {% csrf_token %}
-            <label for="nova_senha">Nova Senha: </label>
-            <input type="password" name="nova_senha" required><br><br>
-            
-            <label for="nova_senha_confirmacao">Digite novamente: </label>
-            <input type="password" name="nova_senha_confirmacao" required><br>
-            
-            <button type="submit">Redefinir Senha</button>
-        </form>
-    </div>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Redefinir Senha - Indústrias Wayne{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms_adicionar_editar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container-user mt-5">
+    <h1>Redefinir Senha</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nova_senha" class="form-label">Nova Senha</label>
+            <input type="password" name="nova_senha" id="nova_senha" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="nova_senha_confirmacao" class="form-label">Digite Novamente</label>
+            <input type="password" name="nova_senha_confirmacao" id="nova_senha_confirmacao" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Redefinir Senha</button>
+    </form>
+</div>
+{% endblock %}

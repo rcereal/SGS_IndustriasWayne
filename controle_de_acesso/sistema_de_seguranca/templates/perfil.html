@@ -10,10 +10,9 @@
 
     <div class="card p-4 shadow mt-3">
         <div class="text-center mb-4">
-            <!-- Exibição da imagem de perfil -->
-            {% if usuario.profile and usuario.profile.profile_image %}
+            {% if perfil and perfil.profile_image %}
                 <img 
-                    src="{{ usuario.profile.profile_image.url }}" 
+                    src="{{ perfil.profile_image.url }}" 
                     alt="Foto de Perfil" 
                     class="rounded-circle" 
                     style="width: 150px; height: 150px; object-fit: cover;">
@@ -30,9 +29,9 @@
         <p><strong>Nome de Usuário:</strong> {{ usuario.username }}</p>
         <p><strong>Email:</strong> {{ usuario.email }}</p>
 
-        {% if usuario.profile %}
+        {% if perfil %}
             <p><strong>Nome Completo:</strong> {{ usuario.get_full_name }}</p>
-            <p><strong>Cargo:</strong> {{ usuario.profile.get_cargo_display }}</p>
+            <p><strong>Cargo:</strong> {{ perfil.get_cargo_display }}</p>
             <p><strong>Data de Cadastro:</strong> {{ usuario.date_joined|date:"d/m/Y" }}</p>
         {% else %}
             <p class="text-muted">Nenhuma informação adicional foi fornecida.</p>

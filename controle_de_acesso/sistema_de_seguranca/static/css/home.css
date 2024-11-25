@@ -1,4 +1,3 @@
-/* home.css - Mantendo as configurações da página home */
 header {
     background: #222;
     color: #fff;
@@ -49,12 +48,12 @@ header {
 }
 
 .card-link img {
-    display: block; /* Alterando para block para melhor controle */
-    width: 100%; /* A imagem vai ocupar toda a largura do contêiner */
-    height: auto; /* A altura se ajusta proporcionalmente à largura */
-    max-width: 12rem; /* A largura máxima da imagem é 12rem */
-    max-height: 12rem; /* Limita a altura máxima da imagem */
-    object-fit: cover; /* Garante que a imagem cubra o espaço disponível sem distorcer */
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 12rem;
+    max-height: 12rem;
+    object-fit: cover;
     border-radius: 50%;
     margin: 0 auto;
     margin-bottom: 9px;

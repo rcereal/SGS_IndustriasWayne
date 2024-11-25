@@ -1,28 +1,31 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitar Recuperação de Senha</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Solicitar Recuperação de Senha - Indústrias Wayne{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms_adicionar_editar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container-user mt-5">
     <h1>Solicitar Recuperação de Senha</h1>
-    <div class="solicitacao-email">
-        {% if messages %}
-        <ul>
+
+    {% if messages %}
+        <ul class="alert-danger">
             {% for message in messages %}
                 <li>{{ message }}</li>
             {% endfor %}
         </ul>
-        {% endif %}
+    {% endif %}
 
-        <form method="post">
-            {% csrf_token %}
-            <label for="email">Digite seu email: </label>
-            <input type="email" name="email" required>
-            <button type="submit">Enviar Link de Recuperação</button>  
-        </form>
-    </div>
-</body>
-</html>
-
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="email" class="form-label">Digite seu email</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar Link de Recuperação</button>
+    </form>
+</div>
+{% endblock %}

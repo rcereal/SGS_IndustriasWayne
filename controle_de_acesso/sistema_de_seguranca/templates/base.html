@@ -15,16 +15,15 @@
         {% endblock %}
         <style>
             body {
-            background-image: url("{% static 'images/backgroundhome.jpg' %}"); /* Caminho da imagem */
-            background-size: cover;   /* A imagem de fundo vai cobrir toda a tela */
-            background-position: center; /* Alinha a imagem no centro */
-            background-attachment: fixed; /* A imagem não se move ao rolar a página */
-            color: white; /* Ajusta a cor do texto para garantir boa visibilidade */
-            height: 100vh; /* Faz com que o fundo ocupe toda a altura da tela */
+            background-image: url("{% static 'images/backgroundhome.jpg' %}");
+            background-size: cover; 
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            height: 100vh;
             position: relative;
         }
 
-        /* Filtro de desfoque no background */
         body::before {
             content: '';
             position: absolute;
@@ -35,14 +34,12 @@
             background-image: url("{% static 'images/backgroundhome.jpg' %}");
             background-size: cover;
             background-position: center;
-            filter: blur(8px); /* Aplica o desfoque */
-            z-index: -1; /* Coloca o filtro de desfoque atrás do conteúdo */
+            filter: blur(8px);
+            z-index: -1;
         }
-
-        /* Garantir que o conteúdo da página fique visível */
         .container {
             position: relative;
-            z-index: 1; /* Coloca o conteúdo acima do fundo borrado */
+            z-index: 1;
         }
         </style>
     </head>

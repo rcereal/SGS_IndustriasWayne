@@ -4,9 +4,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('home/', views.home, name='home'),  # Página inicial
-    path('login/', views.user_login, name='login'),  # Login
-    path('logout/', views.user_logout, name='logout'),  # Logout
+    path('home/', views.home, name='home'),  
+    path('login/', views.user_login, name='login'), 
+    path('logout/', views.user_logout, name='logout'), 
     path('recursos/', views.lista_de_recursos, name='lista_de_recursos'),
     path('adicionar_recurso/', views.adicionar_recurso, name='adicionar_recurso'),
     path('editar_recurso/<int:recurso_id>/', views.editar_recurso, name='editar_recurso'),
